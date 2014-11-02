@@ -18,3 +18,9 @@ source("classifiers/naiveB.R")
 trainNB()
 cvNB()
 predictNB()
+
+
+# To Run Random Forest
+source("classifiers/rf.R")
+trainRF(ntree=500, mtry=4)
+cvRF()

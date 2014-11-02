@@ -10,6 +10,7 @@ crossProduct <- function(data1, data2){
   data1 %*% data2
 }
 
+
 getNormalize <- function(x, mu, sigma){
   round((x-mu)/sigma,3)
 }

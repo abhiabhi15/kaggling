@@ -25,7 +25,7 @@ gridNB <- function(from, to, incr){
 }
 
 # Prediction of Test Data
-predictNB <- function(k){
+predictNB <- function(){
   model <- naiveBayes(Cover_Type ~ ., data = forest_data)
   pred <- predict(model, test_data)
   writeOutput("NB", "../results/nb/nb_output1.csv", pred)
