@@ -46,5 +46,5 @@ gridSVM <- function(from, to, incr){
 predictSVM <- function(sigma){
     modelT <- ksvm(Cover_Type~., data=forest_data , type = "C-svc", kernel="rbfdot", cross=10,  C=7, kpar=list(sigma=sigma))
     pred <- predict(modelT, test_data)
-    writeOutput("SVM", "../results/knn/knn_output1.csv", pred)
+    writeOutput("SVM", "../results/svm/svm_output1.csv", pred)
 }

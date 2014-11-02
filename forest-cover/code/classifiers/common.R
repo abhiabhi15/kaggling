@@ -5,14 +5,14 @@ library(e1071)
 source("utils.R")
 
 ## Global Data Sets
-forest_data <- getData("../train/transform5.csv")
+forest_data <- getData("../train/transform4.csv")
 label_data <- forest_data[,ncol(forest_data)]
 sample_index <- sample(1:15120, 13600)
 train_data <- forest_data[sample_index,]
 cover_type <- train_data[,ncol(train_data)]
 test_sample <- forest_data[-sample_index,]
 gtruth <- test_sample[,ncol(test_sample)]
-test_data <- getData("../test/test_transform5.csv")
+test_data <- getData("../test/test_transform4.csv")
 
 writeOutput <- function(classifier, filename, output){
   
