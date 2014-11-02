@@ -16,7 +16,8 @@ Data is obtained from the UCI repository (also in Kaggle[2]), under the data set
 
 ### Code Description
 
-* **Classifiers**
+**Classifiers**
+
 1. Support Vector Machine
 2. K- Nearest Neighbour
 3. Decision Tree
