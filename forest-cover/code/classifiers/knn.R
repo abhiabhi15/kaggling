@@ -2,7 +2,7 @@ source("classifiers/common.R")
 
 ## Cross Validation
 cvKNN <- function(){
-    knnFit <- train(forest_data[,-ncol(forest_data)], forest_data[,ncol(forest_data)], method = "knn",
+    knnFit <- train(forest_data[,-ncol(forest_data)], label_data, method = "knn",
                   tuneLength = 10, trControl = trainControl(method = "cv"))
     confusionMatrix(knnFit)
 }
