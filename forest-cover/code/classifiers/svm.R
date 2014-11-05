@@ -3,7 +3,14 @@ library(kernlab)
 
 ## Cross Validation
 cvSVM <- function(){
-  
+    svmFit <- train(forest_data[,-ncol(forest_data)], label_data, method = "svmRadial",
+                  tuneLength = 10, trControl = trainControl(method = "cv"))
+    print(svmFit)
+    cat(" ---- Summary of SVM FIt ------")
+    summary(svmFit)
+    filename= genPlotFileName(classifier="SVM", content="Cross Validation Performance")
+    png(filename=filename, width=600, height=520, units="px")
+    plot(svmFit)
 }
 
 ## Training using sample

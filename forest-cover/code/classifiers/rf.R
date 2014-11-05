@@ -3,9 +3,18 @@ library('randomForest')
 
 ## Cross Validation
 cvRF <- function(){
-    forest.rf <- randomForest(Cover_Type ~ .,data = forest_data,ntree = 500,mtry = 4)
-    forest.cv <- rfcv(forest_data[,1:ncol(forest_data)-1],forest_data[,ncol(forest_data)],cv.fold = 10)
-    forest.cv
+    #forest.rf <- randomForest(Cover_Type ~ .,data = forest_data,ntree = 500,mtry = 4)
+    #forest.cv <- rfcv(forest_data[,1:ncol(forest_data)-1],forest_data[,ncol(forest_data)],cv.fold = 10)
+    #forest.cv
+    
+    rfFit <- train(forest_data[,-ncol(forest_data)], label_data, method = "rf",
+                    tuneLength = 10, trControl = trainControl(method = "cv"))
+    print(rfFit)
+    cat(" ---- Summary of RF FIt ------")
+    summary(rfFit)
+    filename= genPlotFileName(classifier="RF", content="Cross Validation Performance")
+    png(filename=filename, width=600, height=520, units="px")
+    plot(rfFit)
 }
 
 ## Training using sample [Categorical]

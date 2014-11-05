@@ -1,10 +1,12 @@
 source("classifiers/common.R")
 
 ## Cross Validation
-cvKNN <- function(){
+cvKNN <- function(content){
     knnFit <- train(forest_data[,-ncol(forest_data)], label_data, method = "knn",
-                  tuneLength = 10, trControl = trainControl(method = "cv"))
-    confusionMatrix(knnFit)
+                    tuneLength = 10, trControl = trainControl(method = "cv"))
+    filename= genPlotFileName(classifier="kNN", content=content)
+    png(filename=filename, width=600, height=520, units="px")
+    plot(knnFit)
 }
 
 ## Training using sample
@@ -41,6 +43,6 @@ gridKNN <- function(from, to, incr){
 
 # Prediction of Test Data
 predictKNN <- function(k){
-  pred <- knn(forest_data[-ncol(forest_data)], test_data, cl=forest_data$Cover_Type)
-  writeOutput("KNN", "../results/knn/knn_output1.csv", pred)
+  pred <- knn(forest_data[-ncol(forest_data)], k=k, test_data, cl=forest_data$Cover_Type)
+  writeOutput("KNN", "../results/knn/knn_output_e1.csv", pred)
 }

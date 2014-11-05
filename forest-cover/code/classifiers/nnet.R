@@ -8,12 +8,12 @@ cvNNet <- function(){
 }
 
 ## Training using sample [Categorical]
-trainNNet <- function(){
+trainNNet <- function(hidden, threshold){
     model <- neuralnet(Cover_Type ~ Elevation + Aspect + Slope +
                            Horizontal_Distance_To_Hydrology + Vertical_Distance_To_Hydrology +
                            Horizontal_Distance_To_Roadways + Hillshade_9am + Hillshade_Noon +
                            Hillshade_3pm + Horizontal_Distance_To_Fire_Points + Area_Of_Wilderness + Soil_Type
-                         , train_data, hidden = 15, linear.output = FALSE, threshold = 0.01)
+                         , train_data, hidden = hidden, linear.output = FALSE, threshold =threshold)
     pred <- compute(model, test_sample[,-ncol(test_sample)])
     pred <- round(pred$net.result)
     pred

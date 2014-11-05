@@ -5,9 +5,9 @@ library(e1071)
 source("utils.R")
 
 ## Global Data Sets
-forest_data <- getData("../train/transform5.csv")
+forest_data <- getData("../train/enhance2.csv")
 label_data <- forest_data[,ncol(forest_data)]
-sample_index <- sample(1:15120, 13600)
+sample_index <- sample(1:nrow(forest_data), round(0.9 * nrow(forest_data)))
 train_data <- forest_data[sample_index,]
 cover_type <- train_data[,ncol(train_data)]
 test_sample <- forest_data[-sample_index,]
