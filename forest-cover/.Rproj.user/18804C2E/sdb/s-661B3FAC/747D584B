@@ -1,0 +1,16 @@
+{
+    "contents" : "source(\"classifiers/common.R\")\n\n## Cross Validation\ncvKNN <- function(content){\n    knnFit <- train(forest_data[,-ncol(forest_data)], label_data, method = \"knn\",\n                    tuneLength = 10, trControl = trainControl(method = \"cv\"))\n    filename= genPlotFileName(classifier=\"kNN\", content=content)\n    png(filename=filename, width=600, height=520, units=\"px\")\n    plot(knnFit)\n}\n\n## Training using sample\ntrainKNN <- function(k){\n    res <- knn(train_data[,-ncol(train_data)] ,k=k, test_sample[,-ncol(test_sample)], cl=cover_type)\n    confusionMatrix(data=res, reference=gtruth)\n}\n\n## Tuning KNN using libraries\ntuneKNN <- function(){\n  knnFit <- train(forest_data[,-ncol(forest_data)], forest_data[,ncol(forest_data)], method = \"knn\",\n                  tuneLength = 10, trControl = trainControl(method = \"cv\"))\n}\n\n## Performing Grid Search, for KNN Tuning\ngridKNN <- function(from, to, incr){\n    i <- 1.1\n    accuracies <- c()\n    kseq <- seq(from, to, incr)\n    for(k in kseq){\n        cat(\"Running knn for : k \", k)\n        cm <- trainKNN(k)\n        file <- paste(paste(\"knn_output/knn_output_cm\",i,sep=\"\"), \"csv\" , sep=\".\")\n        write.csv(cm$table, file=file)    \n        file <- paste(paste(\"knn_output/knn_output_metrics\",i,sep=\"\"), \"csv\" , sep=\".\")\n        write.csv(t(cm$byClass), file=file)    \n        i <- i+.1\n        accuracies <- append(accuracies, cm$overall[1])\n    }\n    png(filename=\"KNN_Performance1.1.png\", width=980, height=520, units=\"px\")\n    plot(sigmaSeq, accuracies, main=\"KNN classification Accuracy Plot\", xlab=\"k\", ylab=\"Accuracy\", pch=20, col=\"blue\")\n    dev.off()\n}\n\n# Prediction of Test Data\npredictKNN <- function(k){\n  pred <- knn(forest_data[-ncol(forest_data)], k=k, test_data, cl=forest_data$Cover_Type)\n  writeOutput(\"KNN\", \"../results/knn/knn_output_e1.csv\", pred)\n}\n",
+    "created" : 1414988500926.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4166990054",
+    "id" : "747D584B",
+    "lastKnownWriteTime" : 1415085362,
+    "path" : "~/dstools/kaggling/forest-cover/code/classifiers/knn.R",
+    "project_path" : "code/classifiers/knn.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

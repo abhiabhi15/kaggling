@@ -1,0 +1,17 @@
+{
+    "contents" : "## Code for feature selection, extraction, aggregation, PCA, SVD etc.\nrm(list=ls())\nsource(\"utils.R\")\n\n## Features Subsetting\nfeatures <- c(\"Elevation\", \"Soil_Type\", \"Horizontal_Distance_To_Roadways\", \n              \"Horizontal_Distance_To_Fire_Points\",\"Area_Of_Wilderness\", \"Horizontal_Distance_To_Hydrology\",\n              \"Hillshade_3pm\", \"Aspect\" ,\"Cover_Type\")\n\nforest_data <- getData(\"../train/enhance2.csv\")\nnames(forest_data)\n\n\n## PCA \n\nforest_data <- getData(\"../train/transform5.csv\")\nforest_data <- forest_data[,features]\npca <- princomp(forest_data[,-ncol(forest_data)], center=TRUE)\nEigenVectors = pca$scores;  \nplot(pca, main=\"Variance of ES for Transform5 Feature Selected Data\")\nmain = \"Transform5(Features Sel) : 1st Eigen vector \"\nplot(EigenVectors[,1],EigenVectors[,2], col=forest_data$Cover_Type, main=main)\nplot(EigenVectors[,1], col=forest_data$Cover_Type, main=main)\n\n## PCA for Soil Type\nraw_data <- getData(\"../train/train.csv\")\nsoil_types <- raw_data[,16:55]\npca <- princomp(soil_types, center=TRUE)\nEigenVectors = pca$scores;  \nplot(pca, main=\"Variance of ES for Soil Type Binary Attributes\")\nmain = \"Transform5(Features Sel) : 1st Eigen vector \"\nplot(EigenVectors[,1],EigenVectors[,2], col=forest_data$Soil_Type, main=main)\nplot(EigenVectors[,1], col=forest_data$Soil_Type, main=main)\n\n\n# KPCA\nlibrary(kernlab)\nkpc <- kpca(~., data=soil_types, kernel=\"rbfdot\", kpar=list(sigma=0.06))\nkpcv <- pcv(kpc)\n",
+    "created" : 1415229842818.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3585161181",
+    "id" : "399AC507",
+    "lastKnownWriteTime" : 1415234705,
+    "path" : "~/dstools/kaggling/forest-cover/code/featExt.R",
+    "project_path" : "code/featExt.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

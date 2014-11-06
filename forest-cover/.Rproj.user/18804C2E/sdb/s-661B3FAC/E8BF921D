@@ -1,0 +1,16 @@
+{
+    "contents" : "source(\"classifiers/common.R\")\nlibrary(rpart)\n## 1 Rpart : CART\n\n## Cross Validation\ncvDT <- function(){\n    dtFit <- train(forest_data[,-ncol(forest_data)], label_data, method = \"rpart\",\n                  tuneLength = 10, trControl = trainControl(method = \"cv\"))\n    print(dtFit)\n    cat(\" ---- Summary of CART DTREE Fit ------\")\n    summary(dtFit)\n    filename= genPlotFileName(classifier=\"dtree\", content=\"Cross Validation Performance\")\n    png(filename=filename, width=600, height=520, units=\"px\")\n    plot(dtFit)\n}\n\n## Training using sample\ntrainDT <- function(){\n   model <- rpart(Cover_Type ~ (Elevation + Horizontal_Distance_To_Hydrology + \n                    Horizontal_Distance_To_Roadways + Hillshade_3pm + Horizontal_Distance_To_Fire_Points \n                    + Soil_Type),\n                      data=train_data, control = rpart.control(cp = 0.005702636))\n   pred <- predict(object = model, newdata = test_sample[,-ncol(test_sample)])  \n   confusionMatrix(round(pred), gtruth)\n}\n\n## Tuning DT using libraries\ntuneDT <- function(){\n}\n\n## Performing Grid Search, for DT Tuning\ngridDT <- function(from, to, incr){\n}\n\n# Prediction of Test Data\npredictDT <- function(k){\n}\n",
+    "created" : 1415080485379.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1556611441",
+    "id" : "E8BF921D",
+    "lastKnownWriteTime" : 1415082507,
+    "path" : "~/dstools/kaggling/forest-cover/code/classifiers/dtree.R",
+    "project_path" : "code/classifiers/dtree.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

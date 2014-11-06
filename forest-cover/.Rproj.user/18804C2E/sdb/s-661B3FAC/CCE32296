@@ -1,0 +1,16 @@
+{
+    "contents" : "#\n# Code for Data Transformation\n#\n\nsource(\"utils.R\")\n\n# Features Reduction\ngetReducedData <- function(forest_data){\n    cover_type <- forest_data[,56]\n    area_wild_data <- forest_data[,12:15]\n    soil_type_data <- forest_data[,16:55]\n    \n    forest_data <- forest_data[,2:11]\n    forest_data$Area_Of_Wilderness <- crossProduct(area_wild_data, 1:4)\n    forest_data$Soil_Type <- crossProduct(soil_type_data, 1:40)\n    forest_data$Cover_Type <- cover_type\n    forest_data\n}\n\nforest_data <- read.csv(\"../train/train.csv\", header=T)\nforest_data <- getReducedData(forest_data)\nwrite.csv(forest_data, \"../train/transform1.csv\", row.names=F)\n\n## Normalization of Data\n# Designed for Reduced DataSet only\n\ngetNormalizedData <- function(forest_data){\n    new_data <- data.frame(matrix(NA, nrow=15120, ncol=10))\n    for( col in 1:10){\n        col_mean <- mean(forest_data[,col], na.rm=TRUE)\n        col_sd <- sd(forest_data[,col], na.rm=TRUE)\n        norm_col <- sapply(forest_data[,col], getNormalize, col_mean, col_sd)\n        new_data[,col] <- norm_col\n    }\n    colNames <- names(forest_data)\n    sliceCol <- forest_data[,11:13]\n    forest_data <- cbind2(new_data, sliceCol)\n    names(forest_data) <- colNames\n    rm(new_data,sliceCol)\n    forest_data\n}\n\nforest_data <- getNormalizedData(forest_data)\nwrite.csv(forest_data, \"../train/transform2.csv\")\n\n## To convert forest data nominal attributes into non-integer form \ngetNominalTransformData <- function(forestData){\n  #forestData$Cover_Type <- paste(\"C\", forestData$Cover_Type, sep = \"\")\n  forestData$Soil_Type <- paste(\"S\", forestData$Soil_Type, sep = \"\")\n  forestData$Area_Of_Wilderness <- paste(\"W\", forestData$Area_Of_Wilderness, sep = \"\")\n  forestData\n}\n\nforest_data <- getNominalTransformData(forest_data)\nwrite.csv(forest_data, \"../train/transform3.csv\")\n\n## To Perform Min-Max Normailization on Reduced Data\n\ngetMinMaxNormalizedData <- function(forest_data){\n  test_data <- read.csv(\"../test/test_transform1.csv\",header = T)\n  for( col in 1:10){\n      col_max <- max(test_data[,col], na.rm=TRUE)\n      col_min <- min(test_data[,col], na.rm=TRUE)\n      norm_col <- sapply(forest_data[,col], getMinMax, col_max, col_min)\n      forest_data[,col] <- norm_col\n  }\n  forest_data\n}\n\nforest_data <- getData(\"../test/test_transform1.csv\")\nforest_data <- getMinMaxNormalizedData(forest_data)\n#forest_data <- getNominalTransformData(forest_data)\nwrite.csv(forest_data, \"../test/test_transform5.csv\", row.names=F)\n\n\n\n",
+    "created" : 1415083578825.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1340354068",
+    "id" : "CCE32296",
+    "lastKnownWriteTime" : 1414888329,
+    "path" : "~/dstools/kaggling/forest-cover/code/transform.R",
+    "project_path" : "code/transform.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

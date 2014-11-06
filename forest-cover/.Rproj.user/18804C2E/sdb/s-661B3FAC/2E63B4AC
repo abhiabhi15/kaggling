@@ -1,0 +1,16 @@
+{
+    "contents" : "# Main File to call all the functions\n## Set the directory path to code\nsetwd(\"code/\")\n\n# To Run SVM\nsource(\"classifiers/svm.R\")\ntrainSVM(sigma =1)\ncvSVM();dev.off()\n\n# To Run KNN\nsource(\"classifiers/knn.R\")\ntrainKNN(k=5)\npredictKNN(k=3)\ncvKNN(\"Cross Validation for Enhanced Training Set2\");dev.off()\n\n# To Run Naive Bayesian\nsource(\"classifiers/naiveB.R\")\ntrainNB()\ncvNB()\npredictNB()\n\n\n# To Run Random Forest\nsource(\"classifiers/rf.R\")\ntrainRF(ntree=500, mtry=4)\ncvRF();dev.off()\n\n# To Run Neural Network\nsource(\"classifiers/nnet.R\")\ntrainNNet(hidden=20, threshold=0.0001)\nfit <-cvNNet()\nplot(fit)\n\n# To Run DTree CART\nsource(\"classifiers/dtree.R\")\ncvDT();dev.off()\ntrainDT()\n\n",
+    "created" : 1414898405073.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1372348420",
+    "id" : "2E63B4AC",
+    "lastKnownWriteTime" : 1415229899,
+    "path" : "~/dstools/kaggling/forest-cover/code/main.R",
+    "project_path" : "code/main.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

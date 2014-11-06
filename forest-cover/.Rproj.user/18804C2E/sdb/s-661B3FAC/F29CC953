@@ -1,0 +1,16 @@
+{
+    "contents" : "rm(list=ls())\nlibrary(class)\nlibrary(caret)\nlibrary(e1071)\nsource(\"utils.R\")\n\n## Global Data Sets\nforest_data <- getData(\"../train/transform5.csv\")\nlabel_data <- forest_data[,ncol(forest_data)]\nsample_index <- sample(1:nrow(forest_data), round(0.9 * nrow(forest_data)))\ntrain_data <- forest_data[sample_index,]\ncover_type <- train_data[,ncol(train_data)]\ntest_sample <- forest_data[-sample_index,]\ngtruth <- test_sample[,ncol(test_sample)]\ntest_data <- getData(\"../test/test_transform5.csv\")\n\nwriteOutput <- function(classifier, filename, output){\n  \n  test_dataId <- getData(\"../test/test_id.csv\") # Only ID\n  output_data <- cbind(test_dataId, output)\n  names(output_data) <- c(\"Id\",\"Cover_Type\")\n  write.csv(output_data, filename, row.names=F)\n  \n  plotFile <- paste(paste(classifier, \"Prediction\", sep=\"_\"), \"png\", sep=\".\")\n  plotFile <- paste(paste(\"../results\",tolower(classifier), sep=\"/\"), plotFile, sep=\"/\")\n  png(filename=plotFile, width=600, height=520, units=\"px\")\n  main <- paste(\"Prediction of forest cover:\", classifier, sep=\" \")\n  hist(as.numeric(output), main=main, xlab=\"cover type\")\n  dev.off()\n}\n",
+    "created" : 1414888831088.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3577335933",
+    "id" : "F29CC953",
+    "lastKnownWriteTime" : 1415166353,
+    "path" : "~/dstools/kaggling/forest-cover/code/classifiers/common.R",
+    "project_path" : "code/classifiers/common.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
