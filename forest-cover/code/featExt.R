@@ -7,7 +7,10 @@ features <- c("Elevation", "Soil_Type", "Horizontal_Distance_To_Roadways",
               "Horizontal_Distance_To_Fire_Points","Area_Of_Wilderness", "Horizontal_Distance_To_Hydrology",
               "Hillshade_3pm", "Aspect" ,"Cover_Type")
 
-forest_data <- getData("../train/enhance2.csv")
+forest_data <- getData("../train/transform5.csv")
+forest_data <- forest_data[,features]
+write.csv(forest_data, "../train/extract1.csv", row.names=F)
+
 names(forest_data)
 
 
