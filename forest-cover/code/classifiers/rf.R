@@ -1,3 +1,5 @@
+# Randon Forest classifier
+
 source("classifiers/common.R")
 library('randomForest')
 
