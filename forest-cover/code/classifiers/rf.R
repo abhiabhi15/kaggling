@@ -3,7 +3,7 @@ library('randomForest')
 
 ## Training using sample
 trainRF <- function(ntree,mtry){
-  forest.rf <- randomForest(Cover_Type ~ .,data = train_data[,-ncol(train_data)],ntree = 500,mtry = 4)
+  forest.rf <- randomForest(Cover_Type ~ .,data = forest_data,ntree = 500,mtry = 4)
   confusionMatrix(data=forest.rf, reference=gtruth)
 }
 
@@ -19,41 +19,39 @@ predictRF <- function(model){
 }
 
 ## Performing Grid Search, for Random Forests Tuning
-mtreeGridRF <- function(from, to, incr){
-  i <- 1.1
-  accuracies <- c()
-  kseq <- seq(from, to, incr)
-  for(k in kseq){
-    cat("Running rf for mtree : ", k)
-    cm <- trainKNN(k)
-    file <- paste(paste("rf_output/rf1_output_cm",i,sep=""), "csv" , sep=".")
-    write.csv(cm$table, file=file)    
-    file <- paste(paste("rf_output/rf1_output_metrics",i,sep=""), "csv" , sep=".")
-    write.csv(t(cm$byClass), file=file)    
-    i <- i+.1
-    accuracies <- append(accuracies, cm$overall[1])
-  }
-  png(filename="RF1_Performance1.1.png", width=980, height=520, units="px")
-  plot(sigmaSeq, accuracies, main="RF1 classification Accuracy Plot", xlab="k", ylab="Accuracy", pch=20, col="blue")
-  dev.off()
+ntreeGridRF <- function(from, to, incr){
+#   oob <- err()
+#   kseq <- seq(from, to, incr)
+#   for(k in kseq){
+#     cat("Running rf for mtree : ", k)
+#     trainedRF <- trainRF(ntree = k,mtry = 4)
+#     file <- paste(paste("rf_output/rf1_output_cm",i,sep=""), "csv" , sep=".")
+#     write.csv(pred$aggregate, file=file)    
+#     #file <- paste(paste("rf_output/rf1_output_metrics",i,sep=""), "csv" , sep=".")
+#     #write.csv(t(pred$aggregate), file=file)    
+#     err <- 
+#   }
+#   #png(filename="RF1_Performance1.1.png", width=980, height=520, units="px")
+#   #plot(sigmaSeq, accuracies, main="RF1 classification Accuracy Plot", xlab="k", ylab="Accuracy", pch=20, col="blue")
+#   dev.off()
 }
 
 ## Performing Grid Search, for Random Forests Tuning
-ntryGridRF <- function(from, to, incr){
-  i <- 1.1
-  accuracies <- c()
-  kseq <- seq(from, to, incr)
-  for(k in kseq){
-    cat("Running rf for ntry: ", k)
-    cm <- trainKNN(k)
-    file <- paste(paste("rf2_output/rf2_output_cm",i,sep=""), "csv" , sep=".")
-    write.csv(cm$table, file=file)    
-    file <- paste(paste("rf2_output/rf2_output_metrics",i,sep=""), "csv" , sep=".")
-    write.csv(t(cm$byClass), file=file)    
-    i <- i+.1
-    accuracies <- append(accuracies, cm$overall[1])
-  }
-  png(filename="RF2_Performance1.1.png", width=980, height=520, units="px")
-  plot(sigmaSeq, accuracies, main="RF2 classification Accuracy Plot", xlab="k", ylab="Accuracy", pch=20, col="blue")
-  dev.off()
+mtryGridRF <- function(from, to, incr){
+#   i <- 1.1
+#   accuracies <- c()
+#   kseq <- seq(from, to, incr)
+#   for(k in kseq){
+#     cat("Running rf for ntry: ", k)
+#     cm <- trainKNN(k)
+#     file <- paste(paste("rf2_output/rf2_output_cm",i,sep=""), "csv" , sep=".")
+#     write.csv(cm$table, file=file)    
+#     file <- paste(paste("rf2_output/rf2_output_metrics",i,sep=""), "csv" , sep=".")
+#     write.csv(t(cm$byClass), file=file)    
+#     i <- i+.1
+#     accuracies <- append(accuracies, cm$overall[1])
+#   }
+#   png(filename="RF2_Performance1.1.png", width=980, height=520, units="px")
+#   plot(sigmaSeq, accuracies, main="RF2 classification Accuracy Plot", xlab="k", ylab="Accuracy", pch=20, col="blue")
+#   dev.off()
 }
