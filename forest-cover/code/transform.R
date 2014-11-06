@@ -52,7 +52,7 @@ getNominalTransformData <- function(forestData){
 }
 
 forest_data <- getNominalTransformData(forest_data)
-write.csv(forest_data, "../train/transform3.csv")
+write.csv(forest_data, "../train/transform3.csv", row.names=F)
 
 ## To Perform Min-Max Normailization on Reduced Data
 

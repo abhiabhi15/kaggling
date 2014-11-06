@@ -11,7 +11,7 @@ cvSVM();dev.off()
 source("classifiers/knn.R")
 trainKNN(k=5)
 predictKNN(k=3)
-cvKNN("Cross Validation for Enhanced Training Set2");dev.off()
+cvKNN("Cross Validation for Extracted Training Set");dev.off()
 
 # To Run Naive Bayesian
 source("classifiers/naiveB.R")
