@@ -45,7 +45,7 @@ write.csv(forest_data, "../train/transform2.csv")
 
 ## To convert forest data nominal attributes into non-integer form 
 getNominalTransformData <- function(forestData){
-  #forestData$Cover_Type <- paste("C", forestData$Cover_Type, sep = "")
+  forestData$Cover_Type <- paste("C", forestData$Cover_Type, sep = "")
   forestData$Soil_Type <- paste("S", forestData$Soil_Type, sep = "")
   forestData$Area_Of_Wilderness <- paste("W", forestData$Area_Of_Wilderness, sep = "")
   forestData
@@ -73,4 +73,7 @@ forest_data <- getMinMaxNormalizedData(forest_data)
 write.csv(forest_data, "../test/test_transform5.csv", row.names=F)
 
 
+forest_data <- getData("../train/enhance1.csv")
+forest_data <- getNominalTransformData(forest_data)
+write.csv(forest_data, "../train/enhance1_n.csv", row.names=F)
 
