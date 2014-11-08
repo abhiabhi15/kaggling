@@ -3,6 +3,10 @@ getData <- function(filename){
     data
 }
 
+writeData <- function(data, filename){
+   write.csv(data, filename, row.names=F)
+}
+
 crossProduct <- function(data1, data2){
     data1 <- as.matrix(data1)
     len   <- length(data2)

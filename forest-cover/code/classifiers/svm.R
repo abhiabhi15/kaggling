@@ -13,9 +13,21 @@ cvSVM <- function(){
     plot(svmFit)
 }
 
+## Model using ksvm
+modelKsvm <- function(sigma, data){
+    model <- ksvm(Cover_Type~., data=data, type = "C-svc", kernel="rbfdot", cross=10,  C=7, kpar=list(sigma=sigma))
+    model
+}
+
+## Model using Libsvm(e1071 package)
+modelLibsvm <- function(data){
+  model <- svm(Cover_Type ~ ., data = data)
+  model
+}
+
 ## Training using sample
 trainSVM <- function(sigma){
-    model <- ksvm(Cover_Type~., data=train_data, type = "C-svc", kernel="rbfdot", cross=10,  C=7, kpar=list(sigma=sigma))
+    model <- modelKsvm(sigma, train_data)
     pred <- predict(model, test_sample[,-ncol(test_sample)])
     confusionMatrix(data=pred, reference=gtruth)
 }
@@ -30,7 +42,6 @@ tuneSVM <- function(){
 
 ## Performing Grid Search, for SVM Tuning
 gridSVM <- function(from, to, incr){
-    
     i <- 1.1
     accuracies <- c()
     sigmaSeq <- seq(from, to, incr)
@@ -50,8 +61,8 @@ gridSVM <- function(from, to, incr){
 }
 
 # Prediction of Test Data
-predictSVM <- function(sigma){
-    modelT <- ksvm(Cover_Type~., data=forest_data , type = "C-svc", kernel="rbfdot", cross=10,  C=7, kpar=list(sigma=sigma))
+predictSVM <- function(){
+    modelT <- modelLibsvm(forest_data)
     pred <- predict(modelT, test_data)
-    writeOutput("SVM", "../results/svm/svm_output1.csv", pred)
+    writeOutput("SVM", "../results/svm/svm_output_en2_1.csv", pred)
 }
