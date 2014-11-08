@@ -30,7 +30,7 @@ ntreeGridRF <- function(from, to, incr){
   for(k in kseq){
     cat("Running rf for ntree : ", k)
     cat("\n")
-    cm <- trainRF(ntree = k,mtry = 4)
+    cm <- trainRF(ntree = k,mtry = 2)
     file <- paste(paste("../results/rf_output/rf_ntree_output_cm",k,sep=""), "csv" , sep=".")
     write.csv(cm$table, file=file)    
     file <- paste(paste("../results/rf_output/rf_ntree_output_metrics",k,sep=""), "csv" , sep=".")
@@ -51,15 +51,15 @@ mtryGridRF <- function(from, to, incr){
   for(k in kseq){
     cat("Running rf for mtry : ", k)
     cat("\n")
-    cm <- trainRF(ntree = 90,mtry = k)
+    cm <- trainRF(ntree = 250,mtry = k)
     file <- paste(paste("../results/rf_output/rf_mtry_output_cm",k,sep=""), "csv" , sep=".")
     write.csv(cm$table, file=file)    
-    file <- paste(paste("../results/rf_output/rf_m try_output_metrics",k,sep=""), "csv" , sep=".")
-    write.csv(t(cm$byClass), file=file)                         m
+    file <- paste(paste("../results/rf_output/rf_mtry_output_metrics",k,sep=""), "csv" , sep=".")
+    write.csv(t(cm$byClass), file=file)                         
     i <- i + 1
     accuracies <- append(accuracies, cm$overall[1])
   }
-  png(filename="../results/rf_output/RF1_mtry_Performance1.1.png", width=980, height=520, units="px")
+  png(filename="../results/rf_output/RF2_mtry_Performance1.1.png", width=980, height=520, units="px")
   plot(kseq, accuracies,type = "b", main="RF1 classification mtry Accuracy Plot", xlab="k", ylab="Accuracy", pch=20, col="blue")
   dev.off()
 }
