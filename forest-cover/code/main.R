@@ -24,6 +24,7 @@ predictNB()
 source("classifiers/rf.R")
 trainRF(ntree=500, mtry=4)
 cvRF();dev.off()
+predictRF(ntree=20, mtry=4)
 
 # To Run Neural Network
 source("classifiers/nnet.R")

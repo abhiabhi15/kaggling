@@ -73,7 +73,12 @@ forest_data <- getMinMaxNormalizedData(forest_data)
 write.csv(forest_data, "../test/test_transform5.csv", row.names=F)
 
 
-forest_data <- getData("../train/enhance1.csv")
+forest_data <- getData("../train/enhance2.csv")
 forest_data <- getNominalTransformData(forest_data)
-write.csv(forest_data, "../train/enhance1_n.csv", row.names=F)
+write.csv(forest_data, "../train/enhance2_n.csv", row.names=F)
 
+forest_data <- getData("../test/test_transform4.csv")
+
+forest_data$Cover_Type <- "C1" 
+head(forest_data)
+write.csv(forest_data, "../test/test_transform4_l.csv", row.names=F)
