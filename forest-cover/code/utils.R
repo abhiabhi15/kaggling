@@ -27,3 +27,9 @@ genPlotFileName <- function(classifier, content){
     plotFile <- paste(paste("../results",tolower(classifier), sep="/"), plotFile, sep="/")
     plotFile
 }
+
+getProp <- function(property){
+    myProp <- read.table("forest-cover.prop.R", header=FALSE, sep="=", row.names=1, strip.white=TRUE, na.strings="NA", stringsAsFactors=FALSE)
+    myProp[property,1]
+}
+
