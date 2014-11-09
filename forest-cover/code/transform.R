@@ -26,14 +26,14 @@ write.csv(forest_data, "../train/transform1.csv", row.names=F)
 
 getNormalizedData <- function(forest_data){
     new_data <- data.frame(matrix(NA, nrow=15120, ncol=10))
-    for( col in 1:10){
+    for( col in 2:11){
         col_mean <- mean(forest_data[,col], na.rm=TRUE)
         col_sd <- sd(forest_data[,col], na.rm=TRUE)
         norm_col <- sapply(forest_data[,col], getNormalize, col_mean, col_sd)
         new_data[,col] <- norm_col
     }
     colNames <- names(forest_data)
-    sliceCol <- forest_data[,11:13]
+    sliceCol <- forest_data[,12:56]
     forest_data <- cbind2(new_data, sliceCol)
     names(forest_data) <- colNames
     rm(new_data,sliceCol)
@@ -41,7 +41,7 @@ getNormalizedData <- function(forest_data){
 }
 
 forest_data <- getNormalizedData(forest_data)
-write.csv(forest_data, "../train/transform2.csv")
+write.csv(forest_data, "../train/binary_transform2.csv")
 
 ## To convert forest data nominal attributes into non-integer form 
 getNominalTransformData <- function(forestData){
@@ -58,7 +58,7 @@ write.csv(forest_data, "../train/transform3.csv", row.names=F)
 
 getMinMaxNormalizedData <- function(forest_data){
   test_data <- read.csv("../test/test_transform1.csv",header = T)
-  for( col in 1:10){
+  for( col in 2:11){
       col_max <- max(test_data[,col], na.rm=TRUE)
       col_min <- min(test_data[,col], na.rm=TRUE)
       norm_col <- sapply(forest_data[,col], getMinMax, col_max, col_min)
@@ -70,7 +70,7 @@ getMinMaxNormalizedData <- function(forest_data){
 forest_data <- getData("../test/test_transform1.csv")
 forest_data <- getMinMaxNormalizedData(forest_data)
 #forest_data <- getNominalTransformData(forest_data)
-write.csv(forest_data, "../test/test_transform5.csv", row.names=F)
+write.csv(forest_data, "../train/binary_transform3.csv", row.names=F)
 
 
 forest_data <- getData("../train/enhance2.csv")
