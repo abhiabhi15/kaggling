@@ -82,3 +82,9 @@ forest_data <- getData("../test/test_transform4.csv")
 forest_data$Cover_Type <- "C1" 
 head(forest_data)
 write.csv(forest_data, "../test/test_transform4_l.csv", row.names=F)
+
+## Preserve the soil_type and area of wilderness distribution
+forest_data <- getData("../train/transform5.csv")
+raw_data <- getData("../train/train.csv")
+new_data <- cbind2(forest_data[,1:10], raw_data[, 12:56])
+writeData(new_data, "../train/transform7.csv")

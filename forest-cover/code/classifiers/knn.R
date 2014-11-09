@@ -44,5 +44,5 @@ gridKNN <- function(from, to, incr){
 # Prediction of Test Data
 predictKNN <- function(k){
   pred <- knn(forest_data[-ncol(forest_data)], k=k, test_data, cl=forest_data$Cover_Type)
-  writeOutput("KNN", "../results/knn/knn_output_e1.csv", pred)
+  writeOutput("KNN", "../results/knn/knn_output_e2.csv", pred)
 }
