@@ -1,4 +1,6 @@
 source("classifiers/common.R")
+
+#Random Forest Library
 library('randomForest')
 
 ## Training using sample
