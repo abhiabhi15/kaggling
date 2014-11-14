@@ -34,9 +34,10 @@ trainSVM <- function(sigma){
 
 ## Tuning SVM using libraries
 tuneSVM <- function(){
-    obj <- tune(svm, Cover_Type~., data = forest_data, ranges = list(gamma = 2^(-1:1), cost = 2^(2:4)),
+    obj <- tune(svm, Cover_Type~., data = forest_data, ranges = list(gamma = 2^(-2:7), cost = 2^(2:4)),
               tunecontrol = tune.control(sampling = "fix"))
     summary(obj)
+    png(filename="SVM_Grid_Search.png", width=600, height=520, units="px")
     plot(obj)
 }
 

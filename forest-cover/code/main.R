@@ -4,12 +4,12 @@ setwd("code/")
 
 # To Run SVM
 source("classifiers/svm.R")
-trainSVM(sigma =1)
-cvSVM();dev.off()
+tuneSVM(); dev.off();
+
 
 # To Run KNN
 source("classifiers/knn.R")
-trainKNN(k=5)
+trainKNN(k=3)
 predictKNN(k=3)
 cvKNN("Cross Validation for Extracted Training Set");dev.off()
 
