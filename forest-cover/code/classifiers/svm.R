@@ -66,5 +66,5 @@ gridSVM <- function(from, to, incr){
 predictSVM <- function(){
     modelT <- modelLibsvm(forest_data)
     pred <- predict(modelT, test_data)
-    writeOutput("SVM", "../results/svm/svm_output_opt1.csv", pred)
+    writeOutput("SVM", "../results/svm/svm_output_gopt1.csv", pred)
 }
