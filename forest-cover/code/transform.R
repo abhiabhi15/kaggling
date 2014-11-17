@@ -93,3 +93,24 @@ forest_data <- getData("../test/test_transform5.csv")
 raw_data <- getData("../test/test.csv")
 new_data <- cbind2(forest_data[,1:10], raw_data[, 12:ncol(raw_data)])
 writeData(new_data, "../test/test_transform7.csv")
+
+## Factorization and feature engineering
+forest_data <- getData("../train/transform5.csv")
+str(forest_data)
+forest_data$Area_Of_Wilderness <- factor(forest_data$Area_Of_Wilderness)
+forest_data$Soil_Type <- factor(forest_data$Soil_Type)
+forest_data$Cover_Type <- factor(forest_data$Cover_Type)
+str(forest_data)
+writeData(forest_data, "../train/transform10.csv")
+
+test_data <- getData("../test/test_transform5.csv")
+str(test_data)
+test_data$Area_Of_Wilderness <- factor(test_data$Area_Of_Wilderness)
+test_data$Soil_Type <- factor(test_data$Soil_Type)
+str(test_data)
+writeData(test_data, "../test/test_transform10.csv")
+
+
+
+
+
