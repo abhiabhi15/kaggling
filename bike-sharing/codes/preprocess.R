@@ -65,11 +65,12 @@ train_data$hour <- as.numeric(substring(train_data$time, 1, 2))
 test_data$hour <- as.numeric(substring(test_data$time, 1, 2))
 
 ## Adding Sunday as a feature
+train_data$sunday <- "0"
 train_data$sunday[train_data$day == "Sunday"] <- "1"
-train_data$sunday[train_data$day != "1"] <- "0"
+#train_data$sunday[train_data$day != "1"] <- "0"
 
+test_data$sunday <- "0"
 test_data$sunday[test_data$day == "Sunday"] <- "1"
-test_data$sunday[test_data$day != "1"] <- "0"
 
 ## Getting Important Features
 

@@ -12,9 +12,8 @@ predictRF <- function(model){
   write.csv(t(pred$aggregate), file=file)
 }
 
-RFFinalPredict <- function(ntree,mtry){
-  #model <- randomForest(count ~ .,data = trainData,ntree = ntree,mtry = mtry)
-  model <- randomForest(count ~ .,data = trainData,ntree = 300,mtry = 7)
+RFFinalPredict <- function(ntree,mtry,outputFile){
+  model <- randomForest(count ~ .,data = trainData,ntree = 200,mtry = 9)
   pred <- predict( model ,testData, predict.all = T)
   output <- pred$aggregate
   submit.rf <- data.frame(datetime = test_id$datetime, count=output)
