@@ -4,7 +4,7 @@ library('party')
 
 
 #build our formula
-formula <- count ~ season + holiday + workingday + weather + temp + atemp + humidity + hour + day
+formula <- count ~ season + holiday + daypart + sunday + workingday + weather + temp + atemp + humidity + hour + day
 
 #build our model
 fit.ctree <- ctree(formula, data=trainData)
@@ -19,4 +19,4 @@ predict.ctree <- predict(fit.ctree, testData)
 submit.ctree <- data.frame(datetime = test_id$datetime, count=predict.ctree)
 
 #write results to .csv for submission
-write.csv(submit.ctree, file="ctree_output_v1.csv",row.names=FALSE)
+write.csv(submit.ctree, file="ctree_output_v2.csv",row.names=FALSE)

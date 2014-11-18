@@ -14,11 +14,11 @@ for(i in 1:length(months)){
     sample <- trainData[month==months[i],]
     aggrs <- aggregate(sample$count,list(sample$hour),mean)
     if(i == 1){
-        plot(aggrs, type="b", col=i, pch=20, ylim=c(0,600), xlab="Days", ylab="Bike Rental Count", main="Bike Rental Pattern Month-Day") 
+        plot(aggrs, type="b", col=i, pch=20, ylim=c(0,600), xlab="Hours of a Day", ylab="Bike Rental Count", main="Bike Rental Pattern Month-Day") 
     }else{
         points(aggrs, type="b", col=i,  pch=20)  
     }
-    Sys.sleep(2)
+    Sys.sleep(1)
 }
 
 xx <- aggregate(count,list(hour),mean)
