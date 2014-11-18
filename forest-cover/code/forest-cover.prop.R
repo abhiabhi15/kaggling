@@ -1,3 +1,4 @@
-train_data = "../train/train_nominal.csv"
-test_data = "../test/test.csv"
+train_data = "../train/transform10.csv"
+test_data = "../test/test_transform10.csv"
+
 

@@ -1,6 +1,7 @@
+# Set Directory to the code folder
 setwd("codes/")
 
 source("common.R")
-head(bikeData)
-names(bikeData)
+head(trainData)
+names(trainData)
 

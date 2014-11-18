@@ -21,7 +21,8 @@ modelKsvm <- function(sigma, data){
 
 ## Model using Libsvm(e1071 package)
 modelLibsvm <- function(data){
-  model <- svm(Cover_Type ~ ., data = data)
+  model <- svm(Cover_Type ~ ., data = data, gamma=0.5, cost=4, type="C-classification")
+  print(summary(model))
   model
 }
 
@@ -36,8 +37,8 @@ trainSVM <- function(sigma){
 tuneSVM <- function(){
     obj <- tune(svm, Cover_Type~., data = forest_data, ranges = list(gamma = 2^(-2:7), cost = 2^(2:4)),
               tunecontrol = tune.control(sampling = "fix"))
-    summary(obj)
-    png(filename="SVM_Grid_Search.png", width=600, height=520, units="px")
+    print(summary(obj))
+    png(filename="SVM_Grid_Search2.png", width=600, height=520, units="px")
     plot(obj)
 }
 
@@ -65,5 +66,5 @@ gridSVM <- function(from, to, incr){
 predictSVM <- function(){
     modelT <- modelLibsvm(forest_data)
     pred <- predict(modelT, test_data)
-    writeOutput("SVM", "../results/svm/svm_output_en2_1.csv", pred)
+    writeOutput("SVM", "../results/svm/svm_output_gopt2.csv", pred)
 }

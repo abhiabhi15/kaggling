@@ -4,6 +4,7 @@ setwd("code/")
 
 # To Run SVM
 source("classifiers/svm.R")
+predictSVM()
 tuneSVM(); dev.off();
 
 
