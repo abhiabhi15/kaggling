@@ -32,7 +32,7 @@ ntreeGridRF <- function(from, to, incr){
   for(k in kseq){
     cat("Running rf for ntree : ", k)
     cat("\n")
-    cm <- trainRF(ntree = k,mtry = 2)
+    cm <- trainRF(ntree = k,mtry = 20)
     file <- paste(paste("../results/rf_output/rf_ntree_output_cm",k,sep=""), "csv" , sep=".")
     write.csv(cm$table, file=file)    
     file <- paste(paste("../results/rf_output/rf_ntree_output_metrics",k,sep=""), "csv" , sep=".")
@@ -40,8 +40,8 @@ ntreeGridRF <- function(from, to, incr){
     i <- i + 1
     accuracies <- append(accuracies, cm$overall[1])
   }
-  png(filename="../results/rf_output/RF1_ntree_Performance1.1.png", width=980, height=520, units="px")
-  plot(kseq, accuracies,type = "b", main="RF1 classification ntree Accuracy Plot", xlab="k", ylab="Accuracy", pch=20, col="blue")
+  png(filename="../results/rf_output/RF3_ntree_Performance1.1.png", width=980, height=520, units="px")
+  plot(kseq, accuracies,type = "b", main="RF classification ntree Accuracy Plot", xlab="ntree", ylab="Accuracy(Cross-Validation)", pch=20, col="blue")
   dev.off()
 }
 
@@ -53,7 +53,7 @@ mtryGridRF <- function(from, to, incr){
   for(k in kseq){
     cat("Running rf for mtry : ", k)
     cat("\n")
-    cm <- trainRF(ntree = 400,mtry = k)
+    cm <- trainRF(ntree = 200,mtry = k)
     file <- paste(paste("../results/rf_output/rf_mtry_output_cm",k,sep=""), "csv" , sep=".")
     write.csv(cm$table, file=file)    
     file <- paste(paste("../results/rf_output/rf_mtry_output_metrics",k,sep=""), "csv" , sep=".")
@@ -61,8 +61,8 @@ mtryGridRF <- function(from, to, incr){
     i <- i + 1
     accuracies <- append(accuracies, cm$overall[1])
   }
-  png(filename="../results/rf_output/RF2_mtry_Performance1.1.png", width=980, height=520, units="px")
-  plot(kseq, accuracies,type = "b", main="RF1 classification mtry Accuracy Plot", xlab="k", ylab="Accuracy", pch=20, col="blue")
+  png(filename="../results/rf_output/RF3_mtry_Performance1.1.png", width=980, height=520, units="px")
+  plot(kseq, accuracies,type = "b", main="RF classification mtry Accuracy Plot", xlab="mtry", ylab="Accuracy(Cross-Validation)", pch=20, col="blue")
   dev.off()
 }
 
@@ -70,9 +70,9 @@ RFFinalPredict <- function(ntree,mtry,outputFile){
   forest.rf <- randomForest(Cover_Type ~ .,data = forest_data,ntree = ntree,mtry = mtry)
   forest.pred <- predict(forest.rf,test_data,predict.all = T)
   output <- forest.pred$aggregate
-  test_id <- read.csv("test_id.csv") # Only ID
-  output[,2] <- substr(output[,2],2,2)
-  output_data <- cbind(test_data, output[,2])
+  test_id <- read.csv("../test/test_id.csv") # Only ID
+  output <- substr(output,2,2)
+  output_data <- cbind(test_id, output)
   names(output_data) <- c("Id","Cover_Type")
   head(output_data)
   write.csv(output_data, outputFile, row.names=F)
