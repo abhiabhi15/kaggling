@@ -25,3 +25,6 @@ xx <- aggregate(count,list(hour),mean)
 plot(xx, type="b", col=2, pch=20)
 
 
+qplot(x = trainData$weather, y = trainData$count,geom = "auto",margins = T, xlab = "Weather", ylab = "Count")
+
+
