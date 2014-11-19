@@ -64,18 +64,25 @@ test_data$daypart[(test_data$hour >= 21) & (test_data$hour <= 24)] <- 5
 train_data$hour <- as.numeric(substring(train_data$time, 1, 2))
 test_data$hour <- as.numeric(substring(test_data$time, 1, 2))
 
-## Adding Sunday as a feature
-train_data$sunday <- "0"
-train_data$sunday[train_data$day == "Sunday"] <- "1"
-#train_data$sunday[train_data$day != "1"] <- "0"
+## Adding season1 as a feature
+train_data$season1 <- "0"
+train_data$season1[train_data$season == "1"] <- "1"
 
-test_data$sunday <- "0"
-test_data$sunday[test_data$day == "Sunday"] <- "1"
+test_data$season1 <- "0"
+test_data$season1[test_data$season == "1"] <- "1"
+
+## Adding weather as a bad/good feature
+train_data$good_weather <- "0"
+train_data$good_weather[train_data$weather == "1" | train_data$weather == "2"] <- "1"
+
+test_data$good_weather <- "0"
+test_data$good_weather[test_data$weather == "1" | test_data$weather == "2"] <- "1"
+
 
 ## Getting Important Features
 
-train_data <- train_data[c("month", "day", "hour", "daypart", "sunday", "season","holiday", "workingday","weather", "temp","atemp", "humidity","windspeed","count")]
-test_data <- test_data[c("month", "day", "hour", "daypart", "sunday","season","holiday", "workingday","weather", "temp","atemp", "humidity","windspeed")]
+train_data <- train_data[c("month", "day", "hour", "daypart", "season1", "good_weather", "season","holiday", "workingday","weather", "temp","atemp", "humidity","windspeed","count")]
+test_data <- test_data[c("month", "day", "hour", "daypart", "season1", "good_weather","season","holiday", "workingday","weather", "temp","atemp", "humidity","windspeed")]
 writeData(data=train_data, filename="../train/transform2.csv")
 writeData(data=test_data, filename="../test/test_transform2.csv")
 
