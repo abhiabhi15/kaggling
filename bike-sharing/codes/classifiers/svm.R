@@ -8,7 +8,7 @@ cvSVM <- function(){
     print(svmFit)
     cat(" ---- Summary of SVM FIt ------")
     summary(svmFit)
-    filename= genPlotFileName(classifier="SVM", content="Cross Validation Performance")
+    filename= genPlotFileName(classifier="svmRadial", content="Cross Validation Performance")
     png(filename=filename, width=600, height=520, units="px")
     plot(svmFit)
 }
