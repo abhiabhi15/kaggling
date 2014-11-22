@@ -6,7 +6,7 @@ library(rpart)
 formula <- count ~ season + season1 + workingday + holiday +daypart+ good_weather + temp  + hour + day + month + humidity + windspeed
 
 cvDTree <- function(){
-    dtFit <- train(trainData[,-ncol(trainData)], label_data, method = "ctree2",
+    dtFit <- train(trainData[,-ncol(trainData)], label_data, method = "rpart",
                     tuneLength = 10)
     print(dtFit)
     cat(" ---- Summary of DT FIt ------\n")
@@ -24,9 +24,9 @@ trainDT <- function(iterations =10){
         train_sample <- trainData[sample_index,]
         test_sample <- trainData[-sample_index,]
         gtruth <- test_sample[,ncol(test_sample)]
-        fit.tree <- train(train_sample[,-ncol(train_sample)], train_sample[,ncol(train_sample)], method = "ctree2",
-                          tuneLength = 10)
+        fit.tree <- ctree(formula, data=train_sample)
         #fit.tree <- rpart(formula, data=train_sample)
+        
         predict.tree <- predict(fit.tree, test_sample[,-ncol(test_sample)])
         err <- rmsle(actual=gtruth, predicted=predict.tree)
         cat("Iteration : ", i , "| RMSLE Error : " , err , "\n")

@@ -66,7 +66,7 @@ gridRF <- function(from, to, incr){
 
 
 RFFinalPredict <- function(ntree,mtry,outputFile){
-  model <- randomForest(count ~ .,data = trainData,ntree = ntree,mtry = mtry)
+  model <- randomForest(count ~ .,data = trainData,ntree = 50,mtry = 7)
   pred <- predict( model ,testData, predict.all = T)
   output <- pred$aggregate
   submit.rf <- data.frame(datetime = test_id$datetime, count=output)
