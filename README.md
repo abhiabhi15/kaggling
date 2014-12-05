@@ -10,3 +10,4 @@ The repo for kaggle competitions
 
 ### Practical Guides for Classifiers
 * SVM
+* Random Forest
